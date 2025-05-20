@@ -1,42 +1,51 @@
 {% set name = "apeye-core" %}
-{% set version = "1.1.0" %}
+{% set version = "1.1.5" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/apeye_core-{{ version }}.tar.gz
-  sha256: b57953dbd13d6e6c6228281bbf4468b98bd21261f1b23812bfab811f247edc0a
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_')}}-{{ version }}.tar.gz
+  sha256: 5de72ed3d00cc9b20fea55e54b7ab8f5ef8500eb33a5368bc162a5585e238a55
 
 build:
-  noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
   number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: True  # [py<36]
 
 requirements:
   host:
-    - hatch-requirements-txt
     - pip
-    - python >=3.6
+    - python
+    - hatchling
+    - hatch-requirements-txt
   run:
+    - python
     - domdf-python-tools >=2.6.0
     - idna >=2.5
-    - python >=3.6
+  run_constrained:
+    # requires-python = ">=3.6.1"
+    - python >=3.6.1
 
 test:
   imports:
     - apeye_core
   commands:
     - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
   requires:
     - pip
 
 about:
-  home: https://pypi.org/project/apeye-core/
+  home: https://github.com/domdfcoding/apeye-core
   summary: Core (offline) functionality for the apeye library.
   license: BSD-3-Clause
+  license_family: BSD
   license_file: LICENSE
+  description: Core (offline) functionality for the apeye library.
+  doc_url: https://github.com/domdfcoding/apeye-core/blob/master/README.rst
+  dev_url: https://github.com/domdfcoding/apeye-core
 
 extra:
   recipe-maintainers:
