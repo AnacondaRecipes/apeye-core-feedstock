@@ -27,7 +27,7 @@ requirements:
     - idna >=2.5
   run_constrained:
     # requires-python = ">=3.6.1"
-    - python !=3.6.0
+    - python >=3.6.1
 
 test:
   imports:
