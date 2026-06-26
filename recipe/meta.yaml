@@ -28,19 +28,20 @@ requirements:
     # requires-python = ">=3.6.1"
     - python >=3.6.1
 
-test:
-  source_files:
-    - tests
-  imports:
-    - apeye_core
-  commands:
-    - pip check
-    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-    - pytest -v tests
-  requires:
-    - pip
-    - pytest >=6.0.0
-    - coincidence >=0.2.0
+# disable testing in first pass to avoid cyclic dependencies in test (coincidence -> whey -> pyproject-parser -> apeye-core)
+#test:
+#  source_files:
+#    - tests
+#  imports:
+#    - apeye_core
+#  commands:
+#    - pip check
+#    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+#    - pytest -v tests
+#  requires:
+#    - pip
+#    - pytest >=6.0.0
+#    - coincidence >=0.2.0
 
 about:
   home: https://github.com/domdfcoding/apeye-core
