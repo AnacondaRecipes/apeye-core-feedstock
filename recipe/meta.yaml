@@ -29,18 +29,18 @@ requirements:
     - python >=3.6.1
 
 # disable testing in first pass to avoid cyclic dependencies in test (coincidence -> whey -> pyproject-parser -> apeye-core)
-#test:
-#  source_files:
-#    - tests
-#  imports:
-#    - apeye_core
-#  commands:
-#    - pip check
-#    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+test:
+  source_files:
+    - tests
+  imports:
+    - apeye_core
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
 #    - pytest -v tests
-#  requires:
-#    - pip
-#    - pytest >=6.0.0
+  requires:
+    - pip
+    - pytest >=6.0.0
 #    - coincidence >=0.2.0
 
 about:
