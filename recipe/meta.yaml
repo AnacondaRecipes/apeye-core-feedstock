@@ -10,7 +10,7 @@ source:
   sha256: 40a7633ccc60eb521be71e14cfe03ad5da342514cd9539ada29041530383a943
 
 build:
-  number: 1
+  number: 2
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   skip: True  # [py<36]
 
@@ -28,6 +28,7 @@ requirements:
     # requires-python = ">=3.6.1"
     - python >=3.6.1
 
+# disable testing in first pass to avoid cyclic dependencies in test (coincidence -> whey -> pyproject-parser -> apeye-core)
 test:
   source_files:
     - tests
@@ -36,11 +37,11 @@ test:
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-    - pytest -v tests
+#    - pytest -v tests
   requires:
     - pip
     - pytest >=6.0.0
-    - coincidence >=0.2.0
+#    - coincidence >=0.2.0
 
 about:
   home: https://github.com/domdfcoding/apeye-core
